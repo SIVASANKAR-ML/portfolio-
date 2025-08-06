@@ -2,41 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Portfolio Design System - Dark theme with electric blue accents
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Dark portfolio theme */
+    --background: 222 47% 4%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 217 32% 8%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 217 32% 8%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Electric blue primary */
+    --primary: 207 100% 60%;
+    --primary-foreground: 222 47% 4%;
+    --primary-glow: 207 100% 70%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Slate gray secondary */
+    --secondary: 215 16% 25%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 217 32% 12%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 207 100% 60%;
+    --accent-foreground: 222 47% 4%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 217 32% 15%;
+    --input: 217 32% 12%;
+    --ring: 207 100% 60%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Custom portfolio colors */
+    --hero-bg: 222 47% 3%;
+    --nav-bg: 222 47% 4% / 0.8;
+    --skill-box: 217 32% 8%;
+    --project-card: 217 32% 8%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(222 47% 3%), hsl(217 32% 6%));
+    --gradient-electric: linear-gradient(135deg, hsl(207 100% 60%), hsl(207 100% 70%));
+    --gradient-card: linear-gradient(135deg, hsl(217 32% 8%), hsl(217 32% 10%));
+    
+    /* Shadows */
+    --shadow-glow: 0 0 40px hsl(207 100% 60% / 0.3);
+    --shadow-card: 0 10px 30px -10px hsl(222 47% 1% / 0.5);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +123,46 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+    scroll-behavior: smooth;
+  }
+  
+  /* Custom utilities */
+  .hero-bg {
+    background: var(--gradient-hero);
+  }
+  
+  .electric-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .card-shadow {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+  
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary-glow));
   }
 }
