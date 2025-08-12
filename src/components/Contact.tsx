@@ -72,10 +72,10 @@ const Contact = () => {
                   className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group"
                 >
                   <Mail className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  alex@example.com
+                  sivasankar.ml12@gmail.com
                 </a>
                 <a
-                  href="https://linkedin.com/in/alexthompson"
+                  href="https://www.linkedin.com/in/sivasankar22/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group"
@@ -84,7 +84,7 @@ const Contact = () => {
                   LinkedIn Profile
                 </a>
                 <a
-                  href="https://github.com/alexthompson"
+                  href="https://github.com/SIVASANKAR-ML"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group"

@@ -36,7 +36,7 @@ const Hero = () => {
 
       <div className="text-center z-10 px-6">
         <h1 className="text-6xl md:text-8xl font-bold mb-6 text-foreground">
-          Alex Thompson
+          Sivasankar M
         </h1>
         
         <div className="h-20 mb-6">
@@ -58,9 +58,11 @@ const Hero = () => {
           >
             View My Work
           </button>
+          <a href="https://drive.google.com/file/d/1gtUTFyCRC1fqh0KBrtDy5kwjzvjqggMC/view?usp=sharing" target="_blank" rel="noopener noreferrer">
           <button className="px-8 py-4 border border-primary text-primary rounded-lg font-medium hover:bg-primary hover:text-primary-foreground transition-all duration-300">
             Download CV
           </button>
+          </a>
         </div>
       </div>
 
