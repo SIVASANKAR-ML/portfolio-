@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Download } from "lucide-react";
-import pic from "../components/assets/pic.jpg";
+import pic2 from "../components/assets/pic2.png";
 
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -40,11 +40,11 @@ const About = () => {
             <div className="relative">
               <div className="w-80 h-80 mx-auto bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl flex items-center justify-center border border-primary/30">
                 <div className="w-64 h-64 bg-gradient-to-br from-primary/30 to-secondary/30 rounded-xl flex items-center justify-center overflow-hidden">
-                  {/* <img
-                    src={pic}
+                  <img
+                    src={pic2}
                     alt="Profile"
                     className="w-full h-full object-cover rounded-xl"
-                  /> */}
+                  />
                 </div>
               </div>
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/20 rounded-full animate-float"></div>
