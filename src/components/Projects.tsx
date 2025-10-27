@@ -1,9 +1,16 @@
 import { useState, useEffect, useRef } from "react";
-import { ExternalLink, Github, Filter } from "lucide-react";
+import { ExternalLink, Github, Filter, X } from "lucide-react";
+import { Dialog, DialogContent } from "./ui/dialog";
+// Local project images (kept inside src so Vite will bundle them)
+import ecomImg from "./assets/ecom.jpg";
+import pic1 from "./assets/pic.jpg";
+import pic2 from "./assets/pic2.png";
+import CPS from "./assets/CPS.png";
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [isVisible, setIsVisible] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -28,29 +35,29 @@ const Projects = () => {
       id: 1,
       title: "E-Commerce Platform",
       description: "Full-stack e-commerce solution with Django backend and React frontend, featuring payment integration and inventory management.",
-      technologies: ["Django", "React", "PostgreSQL", "Stripe", "AWS"],
+      technologies: ["Django", "React", "PostgreSQL", "Stripe", "MongoDb"],
       category: "Web Development",
-      image: "/placeholder-project1.jpg",
+      image: ecomImg,
       liveUrl: "#",
-      githubUrl: "#"
+      githubUrl: "https://github.com/SIVASANKAR-ML/ECOM-web"
     },
     {
       id: 2,
-      title: "Real-time Chat Application",
-      description: "MERN stack chat application with WebSocket integration, user authentication, and message encryption.",
-      technologies: ["MongoDB", "Express", "React", "Node.js", "Socket.io"],
+      title: "College Project Submission Portal",
+      description: "A Frappe-based web application that enables teachers to publish projects, students to submit work online, and manage approvals through Teacher → Project Head → HOD with automated email notifications.",
+      technologies: ["Frappe", "Python", "JavaScript", "MariaDB", "HTML", "CSS"],
       category: "Web Development",
-      image: "/placeholder-project2.jpg",
+      image: CPS,
       liveUrl: "#",
-      githubUrl: "#"
+      githubUrl: "https://github.com/SIVASANKAR-ML/College-Project-Submission-Portal"
     },
     {
       id: 3,
-      title: "Computer Vision Pipeline",
-      description: "Deep learning pipeline for object detection and classification using PyTorch and OpenCV.",
+      title: "Computer Vision Pipeline (Under Development)",
+      description: "An ongoing deep learning project focused on building a modular computer vision pipeline for object detection and classification using PyTorch and OpenCV. Currently in active development with planned support for model optimization and real-time inference.",
       technologies: ["PyTorch", "OpenCV", "Python", "Docker"],
       category: "AI/CV",
-      image: "/placeholder-project3.jpg",
+      image: pic2,
       liveUrl: "#",
       githubUrl: "#"
     },
@@ -60,19 +67,28 @@ const Projects = () => {
       description: "Advanced image segmentation application using U-Net architecture for medical imaging analysis.",
       technologies: ["TensorFlow", "Python", "NumPy", "Matplotlib"],
       category: "AI/CV",
-      image: "/placeholder-project4.jpg",
+      image: pic1,
       liveUrl: "#",
       githubUrl: "#"
     },
     {
       id: 5,
-      title: "Task Management API",
-      description: "RESTful API with Django REST Framework featuring JWT authentication and comprehensive task management.",
-      technologies: ["Django", "DRF", "JWT", "PostgreSQL", "Redis"],
+      title: "Event Scheduler API",
+      description: "A full-stack event scheduling app built for the SPACEAI MERN Stack Developer. Users can create, view, edit, delete, and filter events with a responsive UI, real-time updates, and GraphQL API integration.",
+      technologies: [
+        "Next.js 14",
+        "TypeScript",
+        "Apollo Client",
+        "GraphQL",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "Tailwind CSS"
+      ],
       category: "Web Development",
-      image: "/placeholder-project5.jpg",
+      image: pic2,
       liveUrl: "#",
-      githubUrl: "#"
+      githubUrl: "https://github.com/SIVASANKAR-ML/Eventscheduler"
     },
     {
       id: 6,
@@ -80,7 +96,7 @@ const Projects = () => {
       description: "Real-time face recognition system with live camera feed and database integration for access control.",
       technologies: ["OpenCV", "Python", "SQLite", "Tkinter"],
       category: "AI/CV",
-      image: "/placeholder-project6.jpg",
+      image: pic1,
       liveUrl: "#",
       githubUrl: "#"
     }
@@ -136,20 +152,24 @@ const Projects = () => {
           {filteredProjects.map((project, index) => (
             <div
               key={project.id}
+              onClick={() => setSelectedProject(project)}
               className={`
                 group bg-project-card border border-border rounded-xl overflow-hidden card-shadow
-                transition-all duration-500 hover:scale-105 hover:border-primary/50
+                transition-all duration-500 hover:scale-105 hover:border-primary/50 cursor-pointer
                 ${isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-8"}
               `}
               style={{ 
                 animationDelay: isVisible ? `${index * 100}ms` : "0ms"
               }}
             >
-              {/* Project image placeholder */}
+              {/* Project image */}
               <div className="relative h-48 bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center overflow-hidden">
-                <div className="text-4xl text-primary/40">
-                  {project.category === "AI/CV" ? "🧠" : "💻"}
-                </div>
+                {/* Cover image (uses imported value so Vite bundles it) */}
+                <img
+                  src={project.image as string}
+                  alt={project.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
                   <a
                     href={project.liveUrl}
@@ -190,6 +210,77 @@ const Projects = () => {
           ))}
         </div>
       </div>
+
+      {/* Project Details Modal */}
+      {/* Blur overlay shown while modal is open */}
+      {selectedProject && (
+        <div
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+          onClick={() => setSelectedProject(null)}
+          aria-hidden
+        />
+      )}
+
+      <Dialog open={selectedProject !== null} onOpenChange={(open) => !open && setSelectedProject(null)}>
+          <DialogContent className="max-w-4xl p-0 overflow-hidden">
+          {selectedProject && (
+              <div className="group bg-project-card border border-border rounded-xl overflow-hidden card-shadow transition-all duration-500 hover:border-primary/50">
+              {/* Close button */}
+              <button
+                onClick={() => setSelectedProject(null)}
+                  className="absolute right-4 top-4 z-50 p-2 rounded-full bg-primary text-primary-foreground hover:bg-primary-glow transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+                {/* Project image */}
+                <div className="relative h-72 bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center overflow-hidden">
+                <img
+                  src={selectedProject.image as string}
+                  alt={selectedProject.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                />
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                    <a
+                      href={selectedProject.liveUrl}
+                      className="p-2 bg-primary text-primary-foreground rounded-full hover:bg-primary-glow transition-colors"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                    </a>
+                    <a
+                      href={selectedProject.githubUrl}
+                      className="p-2 bg-secondary text-secondary-foreground rounded-full hover:bg-secondary/80 transition-colors"
+                    >
+                      <Github className="w-5 h-5" />
+                    </a>
+                  </div>
+              </div>
+
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-3 text-foreground group-hover:text-primary transition-colors">
+                  {selectedProject.title}
+                  </h3>
+
+                  <p className="text-muted-foreground mb-4">
+                  {selectedProject.description}
+                </p>
+
+                  {/* Technology tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProject.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className={`px-2 py-1 text-xs rounded-md font-medium ${getTechColor(tech)}`}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
