@@ -6,7 +6,8 @@ const Hero = () => {
   const roles = [
     "Full-Stack Developer",
     "Python & Django Expert", 
-    "AI & Vision Engineer"
+    "Python Frappe & ERPNext Developer",
+    "AI & Vision Engineer" 
   ];
 
   useEffect(() => {

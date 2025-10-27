@@ -32,7 +32,7 @@ const Skills = () => {
         <div className="space-y-4">
           <div>
             <h4 className="font-semibold text-primary mb-2">Backend</h4>
-            <p className="text-sm text-muted-foreground">Python, Django, Node.js, Express.js</p>
+            <p className="text-sm text-muted-foreground">Python, Django, Frappe, Node.js, Express.js</p>
           </div>
           <div>
             <h4 className="font-semibold text-primary mb-2">Frontend</h4>
@@ -42,6 +42,12 @@ const Skills = () => {
             <h4 className="font-semibold text-primary mb-2">Databases</h4>
             <p className="text-sm text-muted-foreground">MongoDB, PostgreSQL</p>
           </div>
+          <div>
+            <h4 className="font-semibold text-primary mb-2">Business Management Software</h4>
+            <p className="text-sm text-muted-foreground">ERPNext</p>
+            <p className="text-sm text-muted-foreground mt-1">Automated Procure-to-Pay cycle and developed custom finance reports.</p>
+          </div>
+
         </div>
       ),
       delay: "0ms"
