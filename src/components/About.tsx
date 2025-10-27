@@ -62,38 +62,33 @@ const About = () => {
             } transition-all duration-700 space-y-6`}
             style={{ animationDelay: "300ms" }}
           >
-            <div className="space-y-4">
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                I'm a passionate developer focused on building robust and
-                scalable web applications using
-                <span className="text-primary font-medium">
-                  {" "}
-                  Python/Django
-                </span>{" "}
-                and the
-                <span className="text-primary font-medium"> MERN stack</span>.
-              </p>
+          <div className="space-y-4">
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              I'm currently working as a{" "}
+              <span className="text-primary font-medium">Python ERPNext Developer Trainee </span> 
+              at <span className="text-primary font-medium">Faircode Technologies</span>, 
+              where I focus on building efficient, scalable, and business-driven ERP solutions 
+              using <span className="text-primary font-medium">Python/Django and Frappe</span>.
+            </p>
 
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                My background in{" "}
-                <span className="text-primary font-medium">
-                  AI and computer vision
-                </span>{" "}
-                allows me to bring a unique, data-driven perspective to my
-                projects, and I am continuously expanding my skills in
-                cutting-edge CV technologies.
-              </p>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Alongside my ERPNext development work, I'm deeply passionate about{" "}
+              <span className="text-primary font-medium">Computer Vision and Artificial Intelligence</span>. 
+              I'm constantly exploring how these technologies can be integrated into real-world 
+              applications and currently working on projects that combine AI with automation.
+            </p>
 
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                When I'm not coding, you'll find me exploring the latest
-                developments in machine learning, contributing to open-source
-                projects, or experimenting with new frameworks and technologies.
-              </p>
-            </div>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              I’m eager to keep learning and growing in the AI and CV domains, 
+              experimenting with new frameworks, and contributing to innovative projects 
+              that bridge software development and intelligent automation.
+            </p>
+          </div>
+
 
              <div className="pt-6">
              <a
-             href="/cv.pdf" 
+             href="/SivasankarCV.pdf" 
              download
              className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary-glow transition-all duration-300 electric-glow hover:scale-105"
             >
@@ -105,13 +100,13 @@ const About = () => {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-6 pt-8 border-t border-border">
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">3+</div>
+                <div className="text-2xl font-bold text-primary">1+</div>
                 <div className="text-sm text-muted-foreground">
                   Years Experience
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">15+</div>
+                <div className="text-2xl font-bold text-primary">6+</div>
                 <div className="text-sm text-muted-foreground">
                   Projects Completed
                 </div>

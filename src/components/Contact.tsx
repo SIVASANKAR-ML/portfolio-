@@ -1,14 +1,18 @@
 import { useState, useEffect, useRef } from "react";
 import { Send, Linkedin, Github, Mail } from "lucide-react";
+import emailjs from '@emailjs/browser';
+import { useToast } from "./ui/use-toast";
 
 const Contact = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: ""
   });
   const contactRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -27,10 +31,56 @@ const Contact = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
+    setIsLoading(true);
+
+    try {
+      // 1. Send the message to your email
+      await emailjs.send(
+        'service_7oxsd3s',
+        'template_s0qhhzr', // Template for your notification
+        {
+          from_name: formData.name,
+          reply_to: formData.email,
+          to_email: 'sivasankar.ml12@gmail.com',
+          message: formData.message,
+        },
+        'WcWm_VBpqS633xYWw'
+      );
+
+      // 2. Send thank you email to the sender
+      await emailjs.send(
+        'service_7oxsd3s',
+        'template_es82rql', // Create this template for auto-reply
+        {
+          to_name: formData.name,
+          to_email: formData.email,
+        },
+        'WcWm_VBpqS633xYWw'
+      );
+
+      toast({
+        title: "Message sent successfully!",
+        description: "Thank you for reaching out. I'll get back to you soon.",
+      });
+
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        message: ""
+      });
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast({
+        title: "Failed to send message",
+        description: "Please try again or contact me directly via email.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -151,10 +201,20 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary-glow transition-all duration-300 electric-glow hover:scale-105"
+                disabled={isLoading}
+                className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary-glow transition-all duration-300 electric-glow hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                <Send className="w-5 h-5" />
-                Send Message
+                {isLoading ? (
+                  <>
+                    <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    Send Message
+                  </>
+                )}
               </button>
             </form>
           </div>

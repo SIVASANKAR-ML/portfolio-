@@ -6,6 +6,10 @@ import ecomImg from "./assets/ecom.jpg";
 import pic1 from "./assets/pic.jpg";
 import pic2 from "./assets/pic2.png";
 import CPS from "./assets/CPS.png";
+import Event from "./assets/Event.png";
+import UC from "./assets/UC.png";
+import stup from "./assets/stup.png"
+import Xlevr from "./assets/Xlevr.png";
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -38,7 +42,7 @@ const Projects = () => {
       technologies: ["Django", "React", "PostgreSQL", "Stripe", "MongoDb"],
       category: "Web Development",
       image: ecomImg,
-      liveUrl: "#",
+      // liveUrl: "#",
       githubUrl: "https://github.com/SIVASANKAR-ML/ECOM-web"
     },
     {
@@ -48,7 +52,7 @@ const Projects = () => {
       technologies: ["Frappe", "Python", "JavaScript", "MariaDB", "HTML", "CSS"],
       category: "Web Development",
       image: CPS,
-      liveUrl: "#",
+      // liveUrl: "#",
       githubUrl: "https://github.com/SIVASANKAR-ML/College-Project-Submission-Portal"
     },
     {
@@ -57,20 +61,21 @@ const Projects = () => {
       description: "An ongoing deep learning project focused on building a modular computer vision pipeline for object detection and classification using PyTorch and OpenCV. Currently in active development with planned support for model optimization and real-time inference.",
       technologies: ["PyTorch", "OpenCV", "Python", "Docker"],
       category: "AI/CV",
-      image: pic2,
-      liveUrl: "#",
+      image: UC,
+      // liveUrl: "#",
       githubUrl: "#"
     },
     {
       id: 4,
-      title: "Image Segmentation Tool",
-      description: "Advanced image segmentation application using U-Net architecture for medical imaging analysis.",
-      technologies: ["TensorFlow", "Python", "NumPy", "Matplotlib"],
-      category: "AI/CV",
-      image: pic1,
-      liveUrl: "#",
-      githubUrl: "#"
+      title: "StUp",
+      description: "A modern startup web application built using React and Vite. Designed for scalability and performance, featuring a clean UI, reusable components, and seamless navigation for an enhanced user experience.",
+      technologies: ["React", "Vite", "Tailwind CSS", "JavaScript"],
+      category: "Web Development",
+      image: stup,
+      liveUrl: "https://stup-sk.netlify.app/",
+      githubUrl: "https://github.com/SIVASANKAR-ML/StUp"
     },
+
     {
       id: 5,
       title: "Event Scheduler API",
@@ -86,27 +91,36 @@ const Projects = () => {
         "Tailwind CSS"
       ],
       category: "Web Development",
-      image: pic2,
-      liveUrl: "#",
+      image:Event,
+      // liveUrl: "#",
       githubUrl: "https://github.com/SIVASANKAR-ML/Eventscheduler"
     },
     {
       id: 6,
-      title: "Face Recognition System",
-      description: "Real-time face recognition system with live camera feed and database integration for access control.",
-      technologies: ["OpenCV", "Python", "SQLite", "Tkinter"],
-      category: "AI/CV",
-      image: pic1,
-      liveUrl: "#",
-      githubUrl: "#"
+      title: "Xlever - AI-Powered Student Freelance Marketplace",
+      description:
+        "A full-stack MERN platform that connects students and professionals through an AI-powered skill-matching system. The platform uses intelligent algorithms to match freelance tasks with students based on their skill level and experience. It also features real-time communication using Socket.io and a secure payment gateway for smooth project collaboration and transactions.",
+      technologies: ["MongoDB", "Express.js", "React", "Node.js", "Socket.io", "AI/ML", "Stripe API"],
+      // belongs to multiple categories
+      category: ["Web Development", "AI/CV"],
+      image: Xlevr,
+      // liveUrl: "#", // optional if hosted
+      githubUrl: "https://github.com/adhilbathali/xLevr-Online_Marketplace" // replace with your repo link
     }
+
   ];
 
   const filters = ["All", "Web Development", "AI/CV"];
 
-  const filteredProjects = activeFilter === "All" 
-    ? projects 
-    : projects.filter(project => project.category === activeFilter);
+  const filteredProjects = activeFilter === "All"
+    ? projects
+    : projects.filter(project => {
+        const cat = project.category;
+        if (Array.isArray(cat)) {
+          return cat.includes(activeFilter);
+        }
+        return cat === activeFilter;
+      });
 
   const getTechColor = (tech: string) => {
     const colors = {

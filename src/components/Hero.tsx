@@ -59,7 +59,7 @@ const Hero = () => {
           >
             View My Work
           </button>
-          <a href="https://drive.google.com/file/d/1gtUTFyCRC1fqh0KBrtDy5kwjzvjqggMC/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+          <a href="https://drive.google.com/file/d/1khABdQLIWpaNOv_tliYy9rH4NPQs3RbI/view?usp=sharing" target="_blank" rel="noopener noreferrer">
           <button className="px-8 py-4 border border-primary text-primary rounded-lg font-medium hover:bg-primary hover:text-primary-foreground transition-all duration-300">
             Download CV
           </button>
