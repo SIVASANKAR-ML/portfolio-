@@ -36,8 +36,8 @@ const Contact = () => {
     setIsLoading(true);
 
     try {
-      // 1. Send the message to your email
-      await emailjs.send(
+      // 1. Send the message to your email (this is the primary action)
+      const notifyResult = await emailjs.send(
         'service_7oxsd3s',
         'template_s0qhhzr', // Template for your notification
         {
@@ -48,18 +48,33 @@ const Contact = () => {
         },
         'WcWm_VBpqS633xYWw'
       );
+      console.log('Notification sent:', notifyResult);
 
-      // 2. Send thank you email to the sender
-      await emailjs.send(
-        'service_7oxsd3s',
-        'template_es82rql', // Create this template for auto-reply
-        {
-          to_name: formData.name,
-          to_email: formData.email,
-        },
-        'WcWm_VBpqS633xYWw'
-      );
+      // 2. Attempt to send thank you email to the sender. If this fails,
+      //    we still consider the overall operation successful because you
+      //    received the message. Handle auto-reply errors separately.
+      try {
+        const replyResult = await emailjs.send(
+          'service_7oxsd3s',
+          'template_es82rql', // Create this template for auto-reply
+          {
+            to_name: formData.name,
+            to_email: formData.email,
+          },
+          'WcWm_VBpqS633xYWw'
+        );
+        console.log('Auto-reply sent:', replyResult);
+      } catch (replyErr) {
+        console.error('Auto-reply failed:', replyErr);
+        // Non-blocking toast to inform you that auto-reply failed
+                toast({
+                  title: "Partial success",
+                  description: "Message delivered to you but confirmation email to sender failed.",
+                  variant: "default",
+                });
+      }
 
+      // Primary success toast
       toast({
         title: "Message sent successfully!",
         description: "Thank you for reaching out. I'll get back to you soon.",
@@ -72,7 +87,7 @@ const Contact = () => {
         message: ""
       });
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Error sending notification email:', error);
       toast({
         title: "Failed to send message",
         description: "Please try again or contact me directly via email.",

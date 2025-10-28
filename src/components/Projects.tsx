@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { ExternalLink, Github, Filter, X } from "lucide-react";
 import { Dialog, DialogContent } from "./ui/dialog";
+import { useToast } from "./ui/use-toast";
 // Local project images (kept inside src so Vite will bundle them)
 import ecomImg from "./assets/ecom.jpg";
 import pic1 from "./assets/pic.jpg";
@@ -16,6 +17,7 @@ const Projects = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -170,7 +172,7 @@ const Projects = () => {
               className={`
                 group bg-project-card border border-border rounded-xl overflow-hidden card-shadow
                 transition-all duration-500 hover:scale-105 hover:border-primary/50 cursor-pointer
-                ${isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-8"}
+                  variant: "default",
               `}
               style={{ 
                 animationDelay: isVisible ? `${index * 100}ms` : "0ms"
@@ -185,12 +187,29 @@ const Projects = () => {
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                  <a
-                    href={project.liveUrl}
-                    className="p-2 bg-primary text-primary-foreground rounded-full hover:bg-primary-glow transition-colors"
-                  >
-                    <ExternalLink className="w-5 h-5" />
-                  </a>
+                  {project.liveUrl && project.liveUrl !== "#" ? (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 bg-primary text-primary-foreground rounded-full hover:bg-primary-glow transition-colors"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                    </a>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        toast({
+                          title: "Live site unavailable",
+                          description: "This project is not currently Hosted. Please check the StUp live demo for a hosted example: https://stup-sk.netlify.app/",
+                          variant: "default",
+                        })
+                      }
+                      className="p-2 bg-primary/10 text-primary rounded-full hover:bg-primary/20 transition-colors"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                    </button>
+                  )}
                   <a
                     href={project.githubUrl}
                     className="p-2 bg-secondary text-secondary-foreground rounded-full hover:bg-secondary/80 transition-colors"
@@ -255,12 +274,29 @@ const Projects = () => {
                     className="absolute inset-0 w-full h-full object-cover"
                 />
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                    <a
-                      href={selectedProject.liveUrl}
-                      className="p-2 bg-primary text-primary-foreground rounded-full hover:bg-primary-glow transition-colors"
-                    >
-                      <ExternalLink className="w-5 h-5" />
-                    </a>
+                    {selectedProject.liveUrl && selectedProject.liveUrl !== "#" ? (
+                      <a
+                        href={selectedProject.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 bg-primary text-primary-foreground rounded-full hover:bg-primary-glow transition-colors"
+                      >
+                        <ExternalLink className="w-5 h-5" />
+                      </a>
+                    ) : (
+                      <button
+                        onClick={() =>
+                          toast({
+                            title: "Live site unavailable",
+                            description: "Dynamic Python projects are not currently Hosted. Please check the StUp live demo for a hosted example: https://stup-sk.netlify.app/",
+                            variant: "default",
+                          })
+                        }
+                        className="p-2 bg-primary/10 text-primary rounded-full hover:bg-primary/20 transition-colors"
+                      >
+                        <ExternalLink className="w-5 h-5" />
+                      </button>
+                    )}
                     <a
                       href={selectedProject.githubUrl}
                       className="p-2 bg-secondary text-secondary-foreground rounded-full hover:bg-secondary/80 transition-colors"

@@ -3,8 +3,12 @@ import { useTheme } from "next-themes";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,17 +54,24 @@ const Header = () => {
               ))}
             </div>
 
-            {/* Small button to switch theme to light */}
+            {/* Theme toggle button */}
             <button
-              onClick={() => setTheme && setTheme("light")}
-              aria-label="Switch to light theme"
-              title="Light theme"
+              onClick={toggleTheme}
+              aria-label={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
+              title={theme === 'light' ? 'Dark theme' : 'Light theme'}
               className="ml-2 inline-flex items-center justify-center w-9 h-9 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-all duration-200"
             >
-              {/* Sun glyph */}
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-                <path d="M12 4.5a1 1 0 0 1 1 1V7a1 1 0 0 1-2 0V5.5a1 1 0 0 1 1-1zm0 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm7.5-3.5a1 1 0 0 1 1 1H21a1 1 0 0 1 0-2h-.5a1 1 0 0 1-1 1zM5.5 12a1 1 0 0 1-1 1H4a1 1 0 0 1 0-2h.5a1 1 0 0 1 1 1zM17.657 6.343a1 1 0 0 1 1.414 1.414L18.414 9a1 1 0 0 1-1.414-1.414l.657-.657zM6.343 17.657a1 1 0 0 1 1.414 1.414L7.707 20a1 1 0 0 1-1.414-1.414l.05-.929zM17.657 17.657l.657.657A1 1 0 0 1 16.9 20l-.657-.657a1 1 0 0 1 1.414-1.414zM6.343 6.343l-.657-.657A1 1 0 0 1 7.1 4l.657.657A1 1 0 0 1 6.343 6.343z" />
-              </svg>
+              {theme === 'light' ? (
+                // Moon icon for dark mode
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                  <path fillRule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clipRule="evenodd" />
+                </svg>
+              ) : (
+                // Sun icon for light mode
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                  <path d="M12 4.5a1 1 0 0 1 1 1V7a1 1 0 0 1-2 0V5.5a1 1 0 0 1 1-1zm0 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm7.5-3.5a1 1 0 0 1 1 1H21a1 1 0 0 1 0-2h-.5a1 1 0 0 1-1 1zM5.5 12a1 1 0 0 1-1 1H4a1 1 0 0 1 0-2h.5a1 1 0 0 1 1 1zM17.657 6.343a1 1 0 0 1 1.414 1.414L18.414 9a1 1 0 0 1-1.414-1.414l.657-.657zM6.343 17.657a1 1 0 0 1 1.414 1.414L7.707 20a1 1 0 0 1-1.414-1.414l.05-.929zM17.657 17.657l.657.657A1 1 0 0 1 16.9 20l-.657-.657a1 1 0 0 1 1.414-1.414zM6.343 6.343l-.657-.657A1 1 0 0 1 7.1 4l.657.657A1 1 0 0 1 6.343 6.343z" />
+                </svg>
+              )}
             </button>
           </div>
 
@@ -105,16 +116,26 @@ const Header = () => {
               <div className="pt-2">
                 <button
                   onClick={() => {
-                    setTheme && setTheme("light");
+                    toggleTheme();
                     setMobileOpen(false);
                   }}
                   className="inline-flex items-center gap-2 px-3 py-2 bg-primary/10 text-primary rounded-md"
                 >
-                  {/* Sun icon small */}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-                    <path d="M12 4.5a1 1 0 0 1 1 1V7a1 1 0 0 1-2 0V5.5a1 1 0 0 1 1-1zm0 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm7.5-3.5a1 1 0 0 1 1 1H21a1 1 0 0 1 0-2h-.5a1 1 0 0 1-1 1zM5.5 12a1 1 0 0 1-1 1H4a1 1 0 0 1 0-2h.5a1 1 0 0 1 1 1zM17.657 6.343a1 1 0 0 1 1.414 1.414L18.414 9a1 1 0 0 1-1.414-1.414l.657-.657zM6.343 17.657a1 1 0 0 1 1.414 1.414L7.707 20a1 1 0 0 1-1.414-1.414l.05-.929zM17.657 17.657l.657.657A1 1 0 0 1 16.9 20l-.657-.657a1 1 0 0 1 1.414-1.414zM6.343 6.343l-.657-.657A1 1 0 0 1 7.1 4l.657.657A1 1 0 0 1 6.343 6.343z" />
-                  </svg>
-                  Light theme
+                  {theme === 'light' ? (
+                    <>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                        <path fillRule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clipRule="evenodd" />
+                      </svg>
+                      <span>Dark theme</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                        <path d="M12 4.5a1 1 0 0 1 1 1V7a1 1 0 0 1-2 0V5.5a1 1 0 0 1 1-1zm0 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm7.5-3.5a1 1 0 0 1 1 1H21a1 1 0 0 1 0-2h-.5a1 1 0 0 1-1 1zM5.5 12a1 1 0 0 1-1 1H4a1 1 0 0 1 0-2h.5a1 1 0 0 1 1 1zM17.657 6.343a1 1 0 0 1 1.414 1.414L18.414 9a1 1 0 0 1-1.414-1.414l.657-.657zM6.343 17.657a1 1 0 0 1 1.414 1.414L7.707 20a1 1 0 0 1-1.414-1.414l.05-.929zM17.657 17.657l.657.657A1 1 0 0 1 16.9 20l-.657-.657a1 1 0 0 1 1.414-1.414zM6.343 6.343l-.657-.657A1 1 0 0 1 7.1 4l.657.657A1 1 0 0 1 6.343 6.343z" />
+                      </svg>
+                      <span>Light theme</span>
+                    </>
+                  )}
                 </button>
               </div>
             </div>
